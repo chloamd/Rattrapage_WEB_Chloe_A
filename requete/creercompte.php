@@ -11,7 +11,7 @@ $requete = $dbh->prepare("INSERT INTO Compte (email_pro, mot_de_passe) VALUES (:
 
 $requete->execute(array(':email' => $nom_utilisateur, ':mdp' => $motDePasseHache));
 
-header("Location: ../Connexion.php");
+header("Location: ../index.php");
 exit;
 
 ?>

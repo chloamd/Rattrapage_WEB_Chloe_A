@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Page de connexion</title>
     <link rel="shortcut icon" href="Image/logo.png"/>
-    <link rel="stylesheet" href="assets/style_connexion.css">
-    <script defer src="script/connexion.js"></script>
+    <link rel="stylesheet" href="assets/style_index.css">
+    <script defer src="script/index.js"></script>
 </head>
 <body>
 
@@ -38,6 +38,14 @@
             <span id="message">
                 Trouver un stage en toute sérénité avec Tinkièt' !
             </span>
+
+            <?php
+            if (isset($_SESSION['error_message'])) {
+                echo "<p id='error-message' style='color:red;'>{$_SESSION['error_message']}</p>";
+                unset($_SESSION['error_message']);
+            }
+            ?>
+
             <form id="form_connexion" action="requete/authentification.php" method="post">
 			    <fieldset id="connexion">
 			        <legend id="bienvenue">Bienvenue sur Tinkièt' !</legend>

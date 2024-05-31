@@ -1,6 +1,6 @@
 <?php
 	$host = 'localhost';
-	$dbname = 'groupe a bdd';
+	$dbname = 'rattrapage_grp_a';
 	$username = 'root';
-	$password = '';
+	$password = 'cesi';
 ?>

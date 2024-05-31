@@ -8,9 +8,9 @@ document.getElementById('formEtudiant').addEventListener('submit', function(even
     var debutPromotion = document.getElementById('debens').value.trim();
     var finPromotion = document.getElementById('finens').value.trim();
 
-    if (nom.length !== 0 && prenom.length !== 0 && promotion !== "" && specialite !== "" && debutPromotion !== "" && finPromotion !== "") {
-        this.submit();
-    } else {
-        alert("Veuillez remplir correctement tous les champs du formulaire.");
-    }
+    if (!nom || !prenom || !promotion || !specialite || !debutPromotion || !finPromotion ) {
+        alert("Veuillez remplir tous les champs obligatoires.");
+            event.preventDefault();
+            return;
+    };
 });

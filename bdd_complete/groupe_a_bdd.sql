@@ -255,9 +255,16 @@ CREATE TABLE `etudiant` (
 
 INSERT INTO `etudiant` (`id_etudiant`, `prenom`, `nom`, `id_compte`) VALUES
 (1, 'Clément', 'Evangelisti', 3),
-(2, 'Amand', 'Chloé', 4),
+(2, 'Chloé', 'Armand', 4),
 (3, 'Arthur', 'Bergbauer', 13),
 (4, 'Jean Lou', 'Boughon', 8);
+
+
+--
+-- Déchargement des données de la table `etudiant`
+--
+
+ALTER TABLE `etudiant` ADD `is_deleted` `is_deleted` TINYINT(1) NULL DEFAULT '0';
 
 -- --------------------------------------------------------
 

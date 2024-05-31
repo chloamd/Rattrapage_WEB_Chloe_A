@@ -21,10 +21,11 @@
             </span>
 
             <div id="renseignement">
-            <form id="formEtudiant" action="requete/creation_etudiant.php" method="post">
-                <input type="text" id="uname" name="nom" placeholder="Nom*" size="50"/>
+                    <form id="formEtudiant" action="requete/creation_etudiant.php" method="post">
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                <input type="text" id="uname" name="nom" placeholder="Nom*" size="50" required />
 
-                <input type="text" id="pnom" name="prenom" placeholder="Prénom*" size="50"/>
+                <input type="text" id="pnom" name="prenom" placeholder="Prénom*" size="50" required />
 
                 <select id="etudiant" name="promotion">
                     <option value="">Sélectionner la promotion*</option>
@@ -43,6 +44,7 @@
                 <select id="spe" name="specialite">
                     <option value="">Sélectionner la spécialité*</option>
                     <?php
+                        
                         require 'connexion_bdd/creation_connexion.php';
 
                         $requete = "SELECT specialite FROM Promotion";
@@ -59,7 +61,7 @@
                 </div>
 
                 <div class="calendar">
-                <input type="date" id="debens" name="debutens" value="05-04-2024" />
+                <input type="date" id="debens" name="debutens" value="05-04-2024" required />
                 </div>
 
                 <div class="dates">
@@ -67,10 +69,10 @@
                 </div>
 
                 <div class="calendar">
-                <input type="date" id="finens" name="finens" value="05-04-2024"/>
+                <input type="date" id="finens" name="finens" value="05-04-2024" required />
                 </div>
 
-                <input type="text" id="comp" name="comp" placeholder="Compétences" size="50"/>
+                <input type="text" id="comp" name="comp" placeholder="Compétences" size="50" required />
 
             <span id="champs">
             * : Champs obligatoires

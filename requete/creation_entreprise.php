@@ -1,16 +1,26 @@
 <?php
 
+
 require '../connexion_bdd/creation_connexion.php';
 
 
-$nom = $_POST['nom'];
-$adresse = $_POST['adresse'];
-$code_postal = $_POST['code_postal'];
-$ville = $_POST['ville'];
-$secteur = $_POST['secteur'];
+$nom = trim($_POST['nom']);
+$adresse = trim($_POST['adresse']);
+$code_postal = trim($_POST['code_postal']);
+$ville = trim($_POST['ville']);
+$secteur = trim($_POST['secteur']);
+
+if (empty($nom) || empty($adresse) || empty($code_postal) || empty($ville) || empty($secteur)) {
+    echo 'Tous les champs obligatoires doivent être remplis.';
+    exit;
+}
+
+if (!preg_match('/^\d{5}$/', $code_postal)) {
+    echo 'Le code postal doit comporter 5 chiffres.';
+    exit;
+}
 
 try {
-
     $requete = $dbh->prepare("INSERT INTO Entreprise (nom_entreprise) VALUES (:nom)");
     $requete->bindParam(':nom', $nom);
     $requete->execute();
@@ -20,7 +30,6 @@ try {
     $requete->bindParam(':secteur', $secteur);
     $requete->execute();
     $result = $requete->fetch(PDO::FETCH_ASSOC);
-
     $result_secteur = $result['id_secteur'];
 
     $requete = $dbh->prepare("INSERT INTO Posseder (id_secteur, numero_de_siret) VALUES (:result_secteur, :last_id)");
@@ -40,9 +49,7 @@ try {
         $requete->bindParam(':code_postal', $code_postal);
         $requete->execute();
         $id_ville = $dbh->lastInsertId();
-    } 
-    
-    else {
+    } else {
         $id_ville = $result['id_ville'];
     }
 
@@ -57,8 +64,7 @@ try {
         $requete->bindParam(':nom_entreprise', $nom);
         $requete->execute();
         $id_adresse = $dbh->lastInsertId();
-    } 
-    else {
+    } else {
         $id_adresse = $result['id_adresse'];
     }
 
@@ -72,5 +78,4 @@ try {
 } catch (PDOException $e) {
     echo 'Erreur : ' . $e->getMessage();
 }
-
 ?>

@@ -39,85 +39,119 @@
   </div>
 
   <?php
-    require 'connexion_bdd/creation_connexion.php';
 
-    $page = isset($_GET['page']) ? $_GET['page'] : 1;
-    $studentsPerPage = 1;
+require 'connexion_bdd/creation_connexion.php';
 
-    $nom = isset($_GET['nom']) ? $_GET['nom'] : '';
-    $ville = isset($_GET['ville']) ? $_GET['ville'] : '';
-    $secteur = isset($_GET['secteur']) ? $_GET['secteur'] : '';
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$studentsPerPage = 3;
 
-    if(isset($_SESSION['id_compte'])) 
-    {
-      $id_compte = $_SESSION['id_compte'];
-    }
+$nom = isset($_GET['nom']) ? $_GET['nom'] : '';
+$ville = isset($_GET['ville']) ? $_GET['ville'] : '';
+$secteur = isset($_GET['secteur']) ? $_GET['secteur'] : '';
 
-    $sql = "SELECT Entreprise.numero_de_siret, Entreprise.nom_entreprise, Adresse.nom_rue, Ville.nom_ville, Secteurs_activites.nom_secteur FROM Entreprise JOIN Adresse ON Entreprise.numero_de_siret = Adresse.numero_de_siret JOIN Posseder ON Entreprise.numero_de_siret = Posseder.numero_de_siret JOIN Secteurs_activites ON Posseder.id_secteur = Secteurs_activites.id_secteur JOIN Appartenir ON Adresse.id_adresse = Appartenir.id_adresse JOIN Ville ON Ville.id_ville = Appartenir.id_ville WHERE Entreprise.etat_entreprise = true";
+if(isset($_SESSION['id_compte'])) {
+    $id_compte = $_SESSION['id_compte'];
+}
 
-    if (!empty($nom)) {
-      $sql .= " AND Entreprise.nom_entreprise LIKE '%$nom%'";
-    }
+// Construire la requête SQL
+$sql = "SELECT 
+            Entreprise.numero_de_siret, 
+            Entreprise.nom_entreprise, 
+            GROUP_CONCAT(Adresse.nom_rue SEPARATOR ', ') AS nom_rue, 
+            Ville.nom_ville, 
+            Secteurs_activites.nom_secteur 
+        FROM 
+            Entreprise 
+        JOIN 
+            Adresse ON Entreprise.numero_de_siret = Adresse.numero_de_siret 
+        JOIN 
+            Posseder ON Entreprise.numero_de_siret = Posseder.numero_de_siret 
+        JOIN 
+            Secteurs_activites ON Posseder.id_secteur = Secteurs_activites.id_secteur 
+        JOIN 
+            Appartenir ON Adresse.id_adresse = Appartenir.id_adresse 
+        JOIN 
+            Ville ON Ville.id_ville = Appartenir.id_ville 
+        WHERE 
+            Entreprise.etat_entreprise = true";
 
-    if (!empty($ville)) {
-      $sql .= " AND Ville.nom_ville LIKE '%$ville%'";
-    }
+if (!empty($nom)) {
+    $sql .= " AND Entreprise.nom_entreprise LIKE '%$nom%'";
+}
 
-    if (!empty($secteur)) {
-      $sql .= " AND Secteurs_activites.nom_secteur = '$secteur'";
-    }
+if (!empty($ville)) {
+    $sql .= " AND Ville.nom_ville LIKE '%$ville%'";
+}
 
-    $sql .= " GROUP BY Entreprise.numero_de_siret";
+if (!empty($secteur)) {
+    $sql .= " AND Secteurs_activites.nom_secteur = '$secteur'";
+}
 
-    $result = $dbh->query($sql);
-    $totalStudents = $result->rowCount();
-    $totalPages = ceil($totalStudents / $studentsPerPage);
+$sql .= " GROUP BY Entreprise.numero_de_siret, Entreprise.nom_entreprise, Ville.nom_ville, Secteurs_activites.nom_secteur";
 
-    $offset = ($page - 1) * $studentsPerPage;
+$result = $dbh->query($sql);
+$totalStudents = $result->rowCount();
+$totalPages = ceil($totalStudents / $studentsPerPage);
 
-    $sql .= " LIMIT $offset, $studentsPerPage";
-    $result = $dbh->query($sql);
+$offset = ($page - 1) * $studentsPerPage;
 
-    $index = 0;
+$sql .= " LIMIT $offset, $studentsPerPage";
+$result = $dbh->query($sql);
 
-    while ($colonne = $result->fetch(PDO::FETCH_ASSOC)) {
-        echo '<div class="container">';
-        echo '<div class="profile">';
-        echo '<img src="Image/entreprise.png" alt="Logo">';
-        echo '<div class="info">';
-        echo '<h2>' . $colonne['nom_entreprise'] . '</h2>';
-        echo '<p>' . $colonne['nom_rue'] . " " . $colonne['nom_ville'] . '</p>';
-        echo '<p> Secteur : ' . $colonne['nom_secteur'] . '</p>';
-        echo '</div></div>';
-        echo '<div class="points-container" onclick="toggleDropdown(' . $index . ')">';
-        echo '<div class="point"></div>';
-        echo '<div class="point"></div>';
-        echo '<div class="point"></div>';
-        echo '</div>';
+$index = 0;
 
-        $sql = "SELECT C.id_compte, CASE WHEN A.id_administrateur IS NOT NULL THEN 'Administrateur' WHEN E.id_etudiant IS NOT NULL THEN 'Etudiant' ELSE 'Autre' END AS role FROM Compte C LEFT JOIN Administrateur A ON C.id_compte = A.id_compte LEFT JOIN Etudiant E ON C.id_compte = E.id_compte WHERE C.id_compte = :id_compte";
+while ($colonne = $result->fetch(PDO::FETCH_ASSOC)) {
+    echo '<div class="container">';
+    echo '<div class="profile">';
+    echo '<img src="Image/entreprise.png" alt="Logo">';
+    echo '<div class="info">';
+    echo '<h2>' . $colonne['nom_entreprise'] . '</h2>';
+    echo '<p>' . $colonne['nom_rue'] . " " . $colonne['nom_ville'] . '</p>';
+    echo '<p> Secteur : ' . $colonne['nom_secteur'] . '</p>';
+    echo '</div></div>';
+    echo '<div class="points-container" onclick="toggleDropdown(' . $index . ')">';
+    echo '<div class="point"></div>';
+    echo '<div class="point"></div>';
+    echo '<div class="point"></div>';
+    echo '</div>';
 
-        // Préparation et exécution de la requête
-        $stmt = $dbh->prepare($sql);
-        $stmt->bindParam(':id_compte', $id_compte);
-        $stmt->execute();
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $sql = "SELECT 
+                C.id_compte, 
+                CASE 
+                    WHEN A.id_administrateur IS NOT NULL THEN 'Administrateur' 
+                    WHEN E.id_etudiant IS NOT NULL THEN 'Etudiant' 
+                    ELSE 'Autre' 
+                END AS role 
+            FROM 
+                Compte C 
+            LEFT JOIN 
+                Administrateur A ON C.id_compte = A.id_compte 
+            LEFT JOIN 
+                Etudiant E ON C.id_compte = E.id_compte 
+            WHERE 
+                C.id_compte = :id_compte";
 
-        foreach ($results as $row) {
-            if($row['role'] === 'Etudiant'){
-              echo '</div>';
-            }
-            else{
-              echo '<div class="dropdown-menu" id="dropdownMenu_' . $index . '">';
-              echo '<a href="#" class="update-link" data-id="' . $colonne['numero_de_siret'] . '">Modifier</a>';;
-              echo '<a href="#" class="delete-link" data-id="' . $colonne['numero_de_siret'] . '">Supprimer</a>';
-              echo '</div></div>';
-            }
+    // Préparation et exécution de la requête
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindParam(':id_compte', $id_compte);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($results as $row) {
+        if ($row['role'] === 'Etudiant') {
+            echo '</div>';
+        } else {
+            echo '<div class="dropdown-menu" id="dropdownMenu_' . $index . '">';
+            echo '<a href="#" class="update-link" data-id="' . $colonne['numero_de_siret'] . '">Modifier</a>';
+            echo '<a href="#" class="delete-link" data-id="' . $colonne['numero_de_siret'] . '">Supprimer</a>';
+            echo '</div></div>';
         }
-
-        $index++;
     }
-  ?>
+
+    $index++;
+}
+?>
+
 
   <div id="pagination" class="pagination"></div>
 

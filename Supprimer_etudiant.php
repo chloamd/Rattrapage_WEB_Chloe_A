@@ -9,15 +9,15 @@
 <body>
 	<header> <?php include "header.php"; ?> </header>
 
-	<?php $idEntreprise = isset($_GET['id']) ? $_GET['id'] : ''; ?>
+	<?php $id_etudiant = isset($_GET['id']) ? $_GET['id'] : ''; ?>
 
     <div class="container">
 
 	    <div class="confirmation-container">
-	        <p>Êtes-vous sûr de vouloir supprimer cette entreprise ?</p>
-	        <form action="requete/suppression_entreprise.php" method="POST">
-	            <button type="submit" name="confirm" value="<?php echo $idEntreprise; ?>">Oui</button>
-	            <a href="Rechercher_entreprise.php"><button type="button">Non</button></a>
+	        <p>Êtes-vous sûr de vouloir supprimer cet étudiant ?</p>
+	        <form action="requete/suppression_etudiant.php" method="POST">
+	            <button type="submit" name="confirm" value="<?php echo $id_etudiant; ?>">Oui</button>
+	            <a href="Liste_etudiant.php"><button type="button">Non</button></a>
 	        </form>
 	    </div>
 

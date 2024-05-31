@@ -1,0 +1,187 @@
+*, ::before, ::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+head {
+  background-color: white;
+}
+
+
+#title {
+  padding-right: 1em;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  background: linear-gradient(darkblue, #004aad);
+  justify-content: center;
+  flex-direction: column;
+
+}
+body h1 {
+  text-align: center;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  justify-content: space-around;
+  gap:8px;
+}
+
+.grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  border: 1px solid #000; 
+  padding: 10px;
+  text-align : center;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.btn {
+  padding: 5px 10px; 
+  cursor: pointer; 
+  border: 1px solid white; 
+  background-color: white; 
+  color: black; 
+  font-size: 16px; 
+  border-radius: 5px; 
+}
+
+.btn:hover {
+  background-color: #0056b3; 
+}
+
+.header {
+  display: flex;
+  align-items: center; 
+  justify-content: space-between; 
+
+  font-size: larger;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width : 100%;
+  background-color: white;
+}
+
+.logo {
+  height: 50px; 
+}
+
+.search-bar {
+  margin-top: 12px;
+  margin-left: 10px; 
+  padding: 5px 10px;
+  font-size: 16px; 
+  border-radius : 20px;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+}
+
+.clickable-image {
+  height: 50px; 
+  margin-left: 10px; 
+}
+.content {
+  padding: 100px 50px 50px;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+footer{
+  text-align: center;
+  background-color: white;
+  color: #004aad;
+  font-weight: bold;
+  margin-top: 30.9vh;
+  margin-left: -8px;
+  margin-right: -8px;
+  margin-bottom: -8px;
+  padding: 5px;
+}
+
+.options {
+position: relative;
+display: inline-block;
+}
+
+.btn {
+background-color: white;
+color: black; 
+padding: 10px;
+font-size: 16px;
+border: none;
+cursor: pointer;
+}
+
+.test {
+  position: relative;
+  display: inline-block;
+  cursor: pointer; 
+  border: 1px solid white; 
+  background-color: white; 
+  color: black; 
+  font-size: 16px; 
+  border-radius: 5px; 
+}
+
+.test .dropdown {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 10px;
+}
+
+.test .dropdown button {
+  display: block;
+  width: 100%;
+  cursor: pointer; 
+  border: 1px solid white; 
+  background-color: white; 
+  color: black; 
+  font-size: 16px; 
+  border-radius: 5px; 
+}
+.testF {
+  position: relative;
+  display: inline-block;
+  cursor: pointer; 
+  background-color: white; 
+  color: black; 
+  font-size: 16px; 
+  border-radius: 10px; 
+}
+.testF .dropdownF {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 10px;
+}
+
+.testF .dropdownF button {
+  display: block;
+  width: 100%;
+  cursor: pointer; 
+  border: 1px solid white; 
+  background-color: white; 
+  color: black; 
+  font-size: 16px; 
+  border-radius: 5px; 
+}

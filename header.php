@@ -3,7 +3,7 @@
 <img id="logo" src="Image/logo.png" alt="Logo">
 <div class="liens">
     <div class="lien-container">
-        <a href="Accueil.php" class="menu-liens"><img src="Image/accueil.png"></a>
+        <a href="index.php" class="menu-liens"><img src="Image/accueil.png"></a>
     </div>
     <div class="lien-container">
         <a><img src="Image/contact.png"></a>
@@ -42,6 +42,7 @@
                         echo '<a href="Ajouter_entreprise.php">Créer Entreprise</a>';
                         echo '<a href="Ajouter_etudiant.php">Créer Etudiant</a>';
                         echo '<a href="Liste_etudiant.php">Liste Etudiant</a>';
+                        echo '<a href="Rechercher_entreprise.php">Liste Entreprise</a>';
                     }
                 }
             ?>

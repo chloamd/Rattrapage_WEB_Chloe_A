@@ -3,12 +3,24 @@
 require '../connexion_bdd/creation_connexion.php';
 
 // Récupération des données du formulaire
-$nom = $_POST['nom'];
-$prenom = $_POST['prenom'];
-$promotion = $_POST['promotion'];
-$debut = $_POST['debutens'];
-$fin = $_POST['finens'];
-$comp = $_POST['comp'];
+$nom = trim($_POST['nom']);
+$prenom = trim($_POST['prenom']);
+$promotion = trim($_POST['promotion']);
+$debut = trim($_POST['debutens']);
+$fin = trim($_POST['finens']);
+$comp = trim($_POST['comp']);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        die('Invalid CSRF token');
+    }
+    
+
+if (empty($nom) || empty($prenom) || empty($promotion) || empty($debut) || empty($fin) || empty($comp)) {
+    echo 'Tous les champs obligatoires doivent être remplis.';
+    exit;
+}
+
 
 try {
 
@@ -57,5 +69,5 @@ try {
     // En cas d'erreur, annulation de la transaction
     $dbh->rollBack();
     echo "Erreur lors de l'ajout de l'étudiant : " . $e->getMessage();
-}
+}}
 ?>

@@ -1,35 +1,37 @@
 <?php
 session_start();
 
-require '../connexion_bdd/creation_connexion.php';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+    require '../connexion_bdd/creation_connexion.php';
 
-$nom_utilisateur = $_POST['nom_utilisateur'];
-$mdp = $_POST['mot_de_passe'];
+    // Contrôle des informations de connexion
+    $username = trim($_POST['nom_utilisateur']);
+    $password = $_POST['mot_de_passe'];
+    
+    
+    if (empty($username) || empty($password)) {
+        $_SESSION['error_message'] = 'Veuillez remplir tous les champs.';
+        header('Location: ../index.php'); 
+        exit;
+    } else {
+        $requete = $dbh->prepare("SELECT id_compte, mot_de_passe FROM Compte WHERE email_pro = :nom_utilisateur LIMIT 1");
+        $requete->execute(['nom_utilisateur' => $username]);
+        $compte = $requete->fetchAll();
 
-$requete = $dbh->prepare("SELECT mot_de_passe, id_compte FROM Compte WHERE email_pro = :nom_utilisateur");
+        if (count($compte) == 1 && password_verify($password, $compte[0]['mot_de_passe'])) {
+            $_SESSION['username'] = $username;
+            $_SESSION['id_compte'] = $compte[0]['id_compte'];
 
-if (!$requete->execute(array(':nom_utilisateur' => $nom_utilisateur))) {
-    echo "Erreur lors de l'exécution de la requête SQL : " . $requete->errorInfo()[2];
-    exit;
+            
+            header('Location: ../accueil.php');
+            exit;
+        } else {
+            
+            $_SESSION['error_message'] = 'Nom d\'utilisateur ou mot de passe incorrect.';
+            header('Location: ../index.php'); 
+            exit;
+        }
+    }
 }
-
-$resultat = $requete->fetch(PDO::FETCH_ASSOC);
-if (!$resultat) {
-    echo "Aucun utilisateur trouvé avec ce pseudo.";
-    exit;
-}
-
-$motDePasseHache = $resultat['mot_de_passe'];
-$id_compte = $resultat['id_compte'];
-
-if (password_verify($mdp, $motDePasseHache)) {
-    $_SESSION['id_compte'] = $id_compte;
-
-    header("Location: ../Accueil.php");
-    exit;
-} else {
-    header("Location: ../Connexion.php");
-    exit;
-}
-
 ?>
