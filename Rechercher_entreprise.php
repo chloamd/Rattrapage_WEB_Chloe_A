@@ -53,7 +53,6 @@ if(isset($_SESSION['id_compte'])) {
     $id_compte = $_SESSION['id_compte'];
 }
 
-// Construire la requête SQL
 $sql = "SELECT 
             Entreprise.numero_de_siret, 
             Entreprise.nom_entreprise, 
@@ -131,7 +130,6 @@ while ($colonne = $result->fetch(PDO::FETCH_ASSOC)) {
             WHERE 
                 C.id_compte = :id_compte";
 
-    // Préparation et exécution de la requête
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(':id_compte', $id_compte);
     $stmt->execute();
@@ -160,7 +158,6 @@ while ($colonne = $result->fetch(PDO::FETCH_ASSOC)) {
 </body>
 
 <script type="text/javascript">
-  // Fonction pour afficher les boutons de pagination
     function showPagination() {
         var totalPages = <?php echo $totalPages; ?>;
         var currentPage = <?php echo $page; ?>;

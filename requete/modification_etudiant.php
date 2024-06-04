@@ -6,7 +6,7 @@ $id_etudiant = $_POST['id_etudiant'];
 $nom = trim($_POST['nom']);
 $prenom = trim($_POST['prenom']);
 
-// Récupération des données du formulaire
+// On récupère les données
 $id_etudiant = $_POST['id_etudiant'];
 $nom = trim($_POST['nom']);
 $prenom = trim($_POST['prenom']);
@@ -24,7 +24,7 @@ if (empty($nom) || empty($prenom) || empty($promotion) || empty($debut) || empty
 try {
     $dbh->beginTransaction();
 
-    // Mise à jour des informations de l'étudiant
+    // Les infos de l'étudiant sont mises à jour
     $sql = "UPDATE Etudiant SET nom = :nom, prenom = :prenom WHERE id_etudiant = :id_etudiant";
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(':nom', $nom);
@@ -32,7 +32,6 @@ try {
     $stmt->bindParam(':id_etudiant', $id_etudiant);
     $stmt->execute();
 
-    // Mise à jour de la promotion de l'étudiant
     $sql = "SELECT id_promotion FROM Promotion WHERE nom_promotion = :promotion";
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(':promotion', $promotion);
@@ -48,7 +47,6 @@ try {
     $stmt->bindParam(':id_etudiant', $id_etudiant);
     $stmt->execute();
 
-    // Mise à jour des compétences de l'étudiant
     $dbh->exec("DELETE FROM Acquerir WHERE id_etudiant = $id_etudiant");
 
     $competences = explode(',', $comp);

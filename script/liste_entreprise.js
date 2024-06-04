@@ -4,7 +4,7 @@ function toggleDropdown(index)
   dropdownMenu.classList.toggle('active');
 }
 
-// Fonction pour afficher les étudiants de la page donnée
+// Fonction pour afficher les entreprises de la page donnée
 function showStudents(page) {
     window.location.href = "Rechercher_entreprise.php?page=" + page;
 }

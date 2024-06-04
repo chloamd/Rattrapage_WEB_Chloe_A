@@ -2,7 +2,7 @@
 
 require '../connexion_bdd/creation_connexion.php';
 
-// Récupération des données du formulaire
+// On récupère les données du formulaire
 $nom = trim($_POST['nom']);
 $prenom = trim($_POST['prenom']);
 $promotion = trim($_POST['promotion']);
@@ -56,7 +56,7 @@ try {
         $stmt->bindParam(':competence', $c);
         $stmt->execute();
 
-        // Insertion de la relation Acquerir
+        // On insert Aquerir
         $sql = "INSERT INTO Acquerir (id_etudiant, id_competence) VALUES (:id_etudiant, LAST_INSERT_ID())";
         $stmt = $dbh->prepare($sql);
         $stmt->bindParam(':id_etudiant', $nouveau_id_etudiant);
@@ -66,7 +66,7 @@ try {
     header("Location: ../Ajouter_etudiant.php");
 
 } catch (PDOException $e) {
-    // En cas d'erreur, annulation de la transaction
+    // si il y a erreur --> message de prevention
     $dbh->rollBack();
     echo "Erreur lors de l'ajout de l'étudiant : " . $e->getMessage();
 }}

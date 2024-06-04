@@ -91,10 +91,8 @@
         $sql .= " AND E.is_deleted = FALSE";
         $sql .= " GROUP BY E.id_etudiant, E.nom, E.prenom, C.email_pro, P.nom_promotion, P.specialite, Ce.nom_centre";
 
-        // Préparation de la requête
         $stmt = $dbh->prepare($sql);
 
-        // Liaison des paramètres
         if (!empty($nom)) {
             $stmt->bindValue(':nom', "%$nom%");
         }
@@ -107,7 +105,6 @@
             $stmt->bindValue(':promotion', "$promotion");
         }
 
-        // Exécution de la requête
         $stmt->execute();
 
         $totalStudents = $stmt->rowCount();
@@ -115,11 +112,9 @@
 
         $offset = ($page - 1) * $studentsPerPage;
 
-        // Ajout de la pagination à la requête SQL
         $sql .= " LIMIT :offset, :studentsPerPage";
         $stmt = $dbh->prepare($sql);
 
-        // Liaison des paramètres pour la pagination
         if (!empty($nom)) {
             $stmt->bindValue(':nom', "%$nom%");
         }
@@ -135,7 +130,6 @@
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->bindValue(':studentsPerPage', $studentsPerPage, PDO::PARAM_INT);
 
-        // Exécution de la requête avec la pagination
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -171,7 +165,6 @@
                         WHERE 
                             C.id_compte = :id_compte";
 
-            // Préparation et exécution de la requête
             $stmtRole = $dbh->prepare($sqlRole);
             $stmtRole->bindParam(':id_compte', $id_compte, PDO::PARAM_INT);
             $stmtRole->execute();
@@ -196,7 +189,6 @@
     <?php include 'footer.php'; ?>
 
     <script type="text/javascript">
-        // Fonction pour afficher les boutons de pagination
         function showPagination() {
             var totalPages = <?php echo $totalPages; ?>;
             var currentPage = <?php echo $page; ?>;

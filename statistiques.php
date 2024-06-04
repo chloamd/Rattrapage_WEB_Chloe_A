@@ -66,7 +66,7 @@
 		require 'connexion_bdd/creation_connexion.php';
 
 		$page = isset($_GET['page']) ? $_GET['page'] : 1;
-		$elementPerPage = 3; // Nombre d'étudiants par page
+		$elementPerPage = 3; 
 		
 		if($filtre === 'competence'){
 			$sql = "SELECT Stage.intitule, Competences.id_competence FROM Stage JOIN Demander ON Stage.id_stage = Demander.id_stage JOIN Competences ON Competences.id_competence = Demander.id_competence ORDER BY Competences.id_competence";
@@ -255,7 +255,6 @@
 </body>
 
 <script type="text/javascript">
-	// Fonction pour afficher les boutons de pagination
     function showPagination() {
         var totalPages = <?php echo $totalPages; ?>;
         var currentPage = <?php echo $page; ?>;

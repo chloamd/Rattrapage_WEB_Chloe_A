@@ -17,6 +17,6 @@ function adjustFooterPosition() {
     }
 }
 
-// Appeler la fonction lors du chargement de la page et lors du redimensionnement de la fenêtre
+// On appelle la fonction lors du chargement de la page et lors du redimensionnement de la fenêtre
 window.onload = adjustFooterPosition;
 window.onresize = adjustFooterPosition;

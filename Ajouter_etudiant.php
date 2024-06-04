@@ -22,7 +22,7 @@
 
             <div id="renseignement">
                     <form id="formEtudiant" action="requete/creation_etudiant.php" method="post">
-                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                
                 <input type="text" id="uname" name="nom" placeholder="Nom*" size="50" required />
 
                 <input type="text" id="pnom" name="prenom" placeholder="Prénom*" size="50" required />

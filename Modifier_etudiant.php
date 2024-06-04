@@ -1,10 +1,8 @@
 <?php
 require 'connexion_bdd/creation_connexion.php';
 
-// Récupérer l'identifiant de l'étudiant à modifier depuis l'URL
 $id_etudiant = $_GET['id'];
 
-// Récupérer les données de l'étudiant depuis la base de données
 $requete = $dbh->prepare("SELECT E.nom, E.prenom, P.nom_promotion, P.specialite, Et.date_debut, Et.date_fin, 
                           GROUP_CONCAT(C.nom_competence SEPARATOR ', ') AS competences 
                           FROM Etudiant E 
@@ -17,6 +15,12 @@ $requete = $dbh->prepare("SELECT E.nom, E.prenom, P.nom_promotion, P.specialite,
 $requete->execute([':id_etudiant' => $id_etudiant]);
 
 $etudiant = $requete->fetch(PDO::FETCH_ASSOC);
+
+
+if (!$etudiant) {
+    echo "Aucun étudiant trouvé avec cet ID.";
+    exit;
+}
 
 $nom = $etudiant['nom'];
 $prenom = $etudiant['prenom'];
