@@ -50,7 +50,7 @@
                     </select>
                     <div id="finir">
                         <button id="bouton" type="submit">
-                            Valider la modification
+                            Modifier une entreprise
                         </button>
                     </div>
                 </form>

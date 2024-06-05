@@ -1,7 +1,3 @@
-<?php
-include 'set_cookie.php';
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
