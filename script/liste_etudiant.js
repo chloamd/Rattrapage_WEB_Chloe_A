@@ -3,7 +3,7 @@ function toggleDropdown(index) {
   dropdownMenu.classList.toggle('active');
 }
 
-// On va rechercher des étudiants
+
 function rechercher() {
   var nom = document.getElementById('nom').value;
   var prenom = document.getElementById('prenom').value;

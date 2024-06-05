@@ -18,9 +18,9 @@
             require 'connexion_bdd/creation_connexion.php';
 
             $page = isset($_GET['page']) ? $_GET['page'] : 1;
-            $offreParPage = 1; // Nombre d'offres par page
+            $offreParPage = 1; 
 
-            // Correction : Utilisation de la table et de la colonne correctes
+            
             $sql = "SELECT nom_entreprise FROM entreprise";
             $result = $dbh->query($sql);
             $totalOffre = $result->rowCount();
@@ -28,7 +28,7 @@
 
             $offset = ($page - 1) * $offreParPage;
 
-            // Correction : Utilisation de la table et de la colonne correctes
+            
             $sql = "SELECT nom_entreprise FROM entreprise LIMIT $offset, $offreParPage";
             $result = $dbh->query($sql);
             $index = 0;
@@ -60,7 +60,7 @@
         <?php include 'footer.php';?>
     </footer>
     <script type="text/javascript">
-        // Fonction pour afficher les boutons de pagination
+        
         function showPagination() {
             var totalPages = <?php echo $totalPages; ?>;
             var currentPage = <?php echo $page; ?>;

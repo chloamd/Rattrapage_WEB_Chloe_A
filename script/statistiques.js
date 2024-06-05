@@ -25,7 +25,7 @@ function toggleDropdown(index)
 }
 
 
-// Fonction pour afficher les étudiants de la page donnée
+
 function showElement(page) {
     window.location.href = "Statistiques.php?page=" + page;
 }

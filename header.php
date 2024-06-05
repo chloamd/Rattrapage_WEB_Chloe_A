@@ -24,7 +24,7 @@
 
                 $sql = "SELECT C.id_compte, CASE WHEN A.id_administrateur IS NOT NULL THEN 'Administrateur' WHEN E.id_etudiant IS NOT NULL THEN 'Etudiant' ELSE 'Autre' END AS role FROM Compte C LEFT JOIN Administrateur A ON C.id_compte = A.id_compte LEFT JOIN Etudiant E ON C.id_compte = E.id_compte WHERE C.id_compte = :id_compte";
 
-                // Préparation et exécution de la requête
+                
                 $stmt = $dbh->prepare($sql);
                 $stmt->bindParam(':id_compte', $id_compte);
                 $stmt->execute();

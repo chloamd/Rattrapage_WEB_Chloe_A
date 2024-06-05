@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     require '../connexion_bdd/creation_connexion.php';
 
-    // Contrôle des informations de connexion
+    // On contrôle les informations de connexion
     $username = trim($_POST['nom_utilisateur']);
     $password = $_POST['mot_de_passe'];
     

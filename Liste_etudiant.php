@@ -39,7 +39,7 @@
         require 'connexion_bdd/creation_connexion.php';
 
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $studentsPerPage = 3; // Nombre d'étudiants par page
+        $studentsPerPage = 3; 
 
         $nom = isset($_GET['nom']) ? $_GET['nom'] : '';
         $prenom = isset($_GET['prenom']) ? $_GET['prenom'] : '';
@@ -49,7 +49,7 @@
             $id_compte = $_SESSION['id_compte'];
         }
 
-        // Construction de la requête SQL avec des filtres
+        
         $sql = "SELECT 
                     E.id_etudiant, 
                     E.nom, 

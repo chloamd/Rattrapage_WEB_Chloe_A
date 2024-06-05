@@ -23,9 +23,9 @@
             require 'connexion_bdd/creation_connexion.php';
 
             $page = isset($_GET['page']) ? $_GET['page'] : 1;
-            $entrepriseParPage = 2; // Nombre d'entreprises par page
+            $entrepriseParPage = 2; 
 
-            // Changer la table et la colonne en fonction de votre schéma de base de données
+            
             $sql = "SELECT nom_entreprise FROM Entreprise";
             $result = $dbh->query($sql);
             $totalEntreprise = $result->rowCount();
@@ -33,7 +33,7 @@
 
             $offset = ($page - 1) * $entrepriseParPage;
 
-            // Changer la table et la colonne en fonction de votre schéma de base de données
+            
             $sql = "SELECT nom_entreprise FROM Entreprise LIMIT $offset, $entrepriseParPage";
             $result = $dbh->query($sql);
             $index = 0;
@@ -71,7 +71,7 @@
 </body>
 
 <script type="text/javascript">
-    // Fonction pour afficher les boutons de pagination
+    
     function showPagination() {
         var totalPages = <?php echo $totalPages; ?>;
         var currentPage = <?php echo $page; ?>;
