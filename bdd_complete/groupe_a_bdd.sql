@@ -261,7 +261,7 @@ INSERT INTO `etudiant` (`id_etudiant`, `prenom`, `nom`, `id_compte`) VALUES
 
 
 --
--- Déchargement des données de la table `etudiant`
+-- Index des données de la table `etudiant`
 --
 
 ALTER TABLE `etudiant` ADD `is_deleted` `is_deleted` TINYINT(1) NULL DEFAULT '0';
