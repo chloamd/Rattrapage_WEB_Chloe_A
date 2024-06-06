@@ -3,7 +3,7 @@
 <img id="logo" src="Image/logo.png" alt="Logo">
 <div class="liens">
     <div class="lien-container">
-        <a href="index.php" class="menu-liens"><img src="Image/accueil.png"></a>
+        <a href="accueil.php" class="menu-liens"><img src="Image/accueil.png"></a>
     </div>
     <div class="lien-container">
         <a><img src="Image/contact.png"></a>
