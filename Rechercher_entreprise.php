@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="assets/style_liste.css">
   <link rel="shortcut icon" href="Image/logo.png"/>
   <script src="script/liste_entreprise.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="script/jquery.min.js"></script>
 </head>
 <body>
   <header>
